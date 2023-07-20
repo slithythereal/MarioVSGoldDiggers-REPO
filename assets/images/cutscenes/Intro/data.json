@@ -1,0 +1,6 @@
+{
+    "frameAmt": 4,
+    "eventsArray": [
+        [2, "playSound", "bomb explode"]
+    ]
+}
