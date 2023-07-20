@@ -1,4 +1,4 @@
-﻿# Mario Vs Gold Diggers
+﻿# Mario Vs Gold Diggers GITHUB CODE REPOSITORY
 ![image](https://github.com/TheSlithyGamer4evr/MarioVSGoldDiggers-REPO/assets/96665813/c0f7bb65-66d7-45db-80c6-caec9435cfa8)
 
 This is the repository for the Mario Vs Gold Diggers joke game.
