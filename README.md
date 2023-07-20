@@ -13,7 +13,7 @@ Once you installed that you're going to want to copy and paste these in your com
 
 These are very similar to the FNF build instructions so it won't be that hard if you have experience.
 
-![image](https://github.com/TheSlithyGamer4evr/MarioVSGoldDiggers-REPO/assets/96665813/3cedce8f-d9e1-45e2-a2a5-8c682b27fbc7)
+![mario haxe github](https://github.com/TheSlithyGamer4evr/MarioVSGoldDiggers-REPO/assets/96665813/0a1dbb48-1438-4c13-b136-dd9073c2fa6b)
 1. Install [HaxeFlixel](https://haxeflixel.com/documentation/install-haxeflixel/)
 2. Download [Git-SCM](https://git-scm.com/downloads)
 3. COPY AND PASTE THESE LINES INTO YOUR COMMAND PROMPT
