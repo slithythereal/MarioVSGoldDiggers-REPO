@@ -6,7 +6,7 @@ import openfl.display.Sprite;
 class Main extends Sprite
 {
 	var screenSize:Array<Int> = [640, 480];
-	var initialState:Null<Class<flixel.FlxState>> = #if PLAYSTATE PlayState #elseif CUTSCENE CutsceneState #else TitleScreen #end;
+	var initialState:Null<Class<flixel.FlxState>> = Init;
 	var zoom:Float = 1;
 	var frameRate:Int = 60;
 	var updateframerate:Int = 60;

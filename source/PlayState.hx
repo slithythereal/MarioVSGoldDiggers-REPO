@@ -195,7 +195,7 @@ class PlayState extends FlxState
 			else if (isConditional && randomInt <= 15 && curWave > timesThree)
 				hookerType = 'bomb hooker';
 			else
-				hookerType = 'hooker';//lol
+				hookerType = 'hooker';
 		}
 
 		var hookerX1:Float = hookerOffsets[curLevel][0];

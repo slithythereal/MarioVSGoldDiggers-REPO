@@ -12,6 +12,7 @@ typedef CutscData =
 {
 	var frameAmt:Int;
 	var eventsArray:Array<Array<Dynamic>>;
+	var withEvents:Int;
 }
 
 class CutscJson
