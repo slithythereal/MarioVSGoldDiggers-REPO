@@ -1,7 +1,11 @@
 {
     "frameAmt": 12,
-    "withEvents": 1,
+    "withEvents": 5,
     "eventsArray": [
-        [1, "playSound", "nokia ringtone", true]
+        [1, "playMusic", "nokia ringtone", true],
+        [2, "stopMusicAndPlaySound", "slam desk"],
+        [3, "playSound", "luigi talking"],
+        [4, "playGameSound", "marioStartup_2_NORETRO"], 
+        [7, "playSound", "hello"]
     ]
 }

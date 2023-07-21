@@ -28,7 +28,7 @@ class TitleScreen extends FlxState
 	{
 		super.create();
 
-		if(FlxG.save.data.startsIntroCutscene == null)
+		if (FlxG.save.data.startsIntroCutscene == null)
 			FlxG.save.data.startsIntroCutscene = hasIntroCutscene;
 		else
 			hasIntroCutscene = FlxG.save.data.startsIntroCutscene;
@@ -58,7 +58,7 @@ class TitleScreen extends FlxState
 			}
 
 			if (FlxG.keys.justPressed.ESCAPE)
-				openSubState(new OptionsSubState());
+				openSubState(new OptionsSubState(true));
 		}
 	}
 

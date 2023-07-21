@@ -147,7 +147,7 @@ class Jumpscare extends FlxState // messy code: feel free to fix it if you want 
 			if (FlxG.mouse.justPressed || FlxG.keys.anyJustPressed([SPACE, ENTER]))
 				FlxG.switchState(new PlayState());
 			if (FlxG.keys.justPressed.ESCAPE)
-				openSubState(new OptionsSubState());
+				openSubState(new OptionsSubState(false));
 		}
 	}
 

@@ -6,8 +6,8 @@ import flixel.FlxSubState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import substate.*;
 import objs.HeadsUpTxt;
+import substate.*;
 
 class OptionsSubState extends FlxSubState
 {
@@ -15,10 +15,16 @@ class OptionsSubState extends FlxSubState
 	var optionArray:Array<String> = ['Fullscreen', 'Credits', 'Intro Cutscene', 'Exit Options', 'Exit Game'];
 	var optionGrp:FlxTypedGroup<FlxText>;
 	var headsUpGrp:FlxTypedGroup<HeadsUpTxt>;
+	var ogStateHasMouse:Bool;
 
-	public function new()
+	public function new(ogStateHasMouse:Bool)
 	{
 		super();
+		this.ogStateHasMouse = ogStateHasMouse;
+
+		if (!ogStateHasMouse)
+			FlxG.mouse.visible = true;
+
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0.5;
 		add(bg);
@@ -35,7 +41,7 @@ class OptionsSubState extends FlxSubState
 			txt.screenCenter(X);
 			optionGrp.add(txt);
 		}
-		
+
 		headsUpGrp = new FlxTypedGroup<HeadsUpTxt>();
 		add(headsUpGrp);
 	}
@@ -69,7 +75,11 @@ class OptionsSubState extends FlxSubState
 		if (FlxG.keys.anyJustPressed([ENTER, SPACE]))
 			coolFunction('${optionArray[curOption]}');
 		if (FlxG.keys.justPressed.ESCAPE)
+		{
+			if (!ogStateHasMouse)
+				FlxG.mouse.visible = false;
 			close();
+		}
 	}
 
 	function coolFunction(daFunc:String)

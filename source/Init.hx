@@ -20,7 +20,7 @@ class Init extends FlxState
 			#elseif CUTSCENE
 			FlxG.switchState(new CutsceneState('Intro'));
 			#else
-			FlxG.switchState(TitleScreen());
+			FlxG.switchState(new TitleScreen());
 			#end
 		});
 		// var http = new haxe.Http("https://raw.githubusercontent.com/TheSlithyGamer4evr/MarioVSGoldDiggers-REPO")
