@@ -1,11 +1,14 @@
 {
     "frameAmt": 12,
-    "withEvents": 5,
+    "withEvents": 7,
     "eventsArray": [
         [1, "playMusic", "nokia ringtone", true],
         [2, "stopMusicAndPlaySound", "slam desk"],
         [3, "playSound", "luigi talking"],
         [4, "playGameSound", "marioStartup_2_NORETRO"], 
-        [7, "playSound", "hello"]
-    ]
+        [7, "playSound", "hello"], 
+        [9, "frame10Trans"], 
+        [12, "playSound", "gunCocking"]
+    ],
+    "endEvent": "playstateTrans"
 }

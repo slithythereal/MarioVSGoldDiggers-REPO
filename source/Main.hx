@@ -11,12 +11,11 @@ class Main extends Sprite
 	var frameRate:Int = 60;
 	var updateframerate:Int = 60;
 	var skipSplash:Bool = true;
-	var fullscreen:Bool = #if hl false #else true #end;
 
 	public function new()
 	{
 		super();
-		addChild(new FlxGame(screenSize[0], screenSize[1], initialState, zoom, updateframerate, frameRate, skipSplash, fullscreen));
+		addChild(new FlxGame(screenSize[0], screenSize[1], initialState, zoom, updateframerate, frameRate, skipSplash));
 	}
 }
 /**

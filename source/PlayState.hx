@@ -62,10 +62,6 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		#if debug
-		CommandData.loadDebugCommands();
-		#end
-
 		FlxG.sound.playMusic('assets/music/${levels[curLevel]}.ogg', 0.7, true); // ty cakie
 		FlxG.mouse.visible = false;
 
@@ -237,6 +233,7 @@ class PlayState extends FlxState
 			addHeadsUpText("Nice Shield!", 1, FlxColor.CYAN);
 
 			hookersKilled += 1;
+			FlxG.camera.shake(0.05, 0.5);
 			if (hooker.isConditional)
 			{
 				hookerCount -= 1;

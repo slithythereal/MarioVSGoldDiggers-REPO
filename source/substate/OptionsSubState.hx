@@ -88,7 +88,8 @@ class OptionsSubState extends FlxSubState
 		{
 			case 'Fullscreen':
 				FlxG.fullscreen = !FlxG.fullscreen;
-				addHeadsUpText('IsFullscreen: ${FlxG.fullscreen}', 2);
+				FlxG.save.data.isFullscreen = FlxG.fullscreen;
+				addHeadsUpText('IsFullscreen: ${FlxG.save.data.isFullscreen}', 2);
 			case 'Credits':
 				openSubState(new CreditsSubState());
 			case 'Exit Game':
@@ -97,11 +98,12 @@ class OptionsSubState extends FlxSubState
 				close();
 			case 'Intro Cutscene':
 				TitleScreen.hasIntroCutscene = !TitleScreen.hasIntroCutscene;
-				addHeadsUpText('HasIntroCutscene: ${TitleScreen.hasIntroCutscene}', 2);
-				FlxG.save.data.startsIntroCutscene = TitleScreen.hasIntroCutscene;
+				FlxG.save.data.startsIntroCutscene = !FlxG.save.data.startsIntroCutscene;
+				addHeadsUpText('HasIntroCutscene: ${FlxG.save.data.startsIntroCutscene}', 2);
 			default:
 				trace("no func here");
 		}
+		FlxG.save.flush();
 	}
 
 	function changeOption(cool:Int)

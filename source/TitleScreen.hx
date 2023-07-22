@@ -28,20 +28,19 @@ class TitleScreen extends FlxState
 	{
 		super.create();
 
+		// crappy save data stuff, whoever fixes these gets added to update credits
 		if (FlxG.save.data.startsIntroCutscene == null)
 			FlxG.save.data.startsIntroCutscene = hasIntroCutscene;
 		else
 			hasIntroCutscene = FlxG.save.data.startsIntroCutscene;
+		if (FlxG.save.data.isFullscreen == null)
+			FlxG.save.data.isFullscreen = FlxG.fullscreen;
+		else if (FlxG.save.data.isFullscreen)
+			FlxG.fullscreen = true;
 
 		bg = new FlxSprite(0, 0).loadGraphic('$assetPath/7 11.png');
 		add(bg);
 		coolFunction('twnLogo');
-
-		if (FlxG.save.data.startedGame == null)
-		{
-			FlxG.sound.volume = 0;
-			FlxG.save.data.startedGame = true;
-		}
 	}
 
 	override function update(elapsed:Float)

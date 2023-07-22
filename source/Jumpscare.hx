@@ -176,5 +176,6 @@ class Jumpscare extends FlxState // messy code: feel free to fix it if you want 
 		else
 			kill_HIGHSCORETXT.text = 'HOOKERS ELIMINATED HIGHSCORE: ${FlxG.save.data.mostKills}';
 		add(kill_HIGHSCORETXT);
+		FlxG.save.flush();
 	}
 }
