@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.FlxSubState;
 import flixel.effects.particles.FlxEmitter.FlxTypedEmitter;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxSound;
@@ -14,6 +15,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
 import objs.*;
+import substate.OptionsSubState;
 
 class PlayState extends FlxState
 {
@@ -52,11 +54,19 @@ class PlayState extends FlxState
 	var hookerOffsets:Array<Array<Float>> = [[575, 675, 316], [575, 675, 363], [575, 675, 339], [575, 675, 363]];
 	var pPlatformOffsets:Array<Array<Float>> = [[0, 433], [0, 480], [0, 457], [0, 480]];
 	var flash:Flash;
-	var onceInWaves:Int = 8;
+	var onceInWaves:Int = 8; // once in BLANK waves it switches to the next world
 	var pogoPlatform:FlxSprite;
 	var hookerMultiplier:Int = 5;
 	var headsUpGrp:FlxTypedGroup<HeadsUpTxt>;
 	var bombCanDamage:Bool = false;
+
+	public var paused:Bool = false;
+
+	var canPause:Bool = false;
+	var shieldTimer:FlxTimer;
+	var bombTimer:FlxTimer;
+	var bombExplodeTimer:FlxTimer;
+	var newWaveTimer:FlxTimer;
 
 	override public function create()
 	{
@@ -83,7 +93,7 @@ class PlayState extends FlxState
 
 		#if !NO_WAVES
 		hookerGrp.add(new Hooker(hookerOffsets[curLevel][0], hookerOffsets[curLevel][2], '${introHooker[curLevel][0]}', true)); // hooker
-		addHeadsUpText('${introHooker[curIntroHooker][2]}', 4, introHooker[curIntroHooker][1]);
+		addHeadsUpText('${introHooker[curLevel][2]}', 4, introHooker[curLevel][1]);
 		#end
 		extraSpawnFuncs(); // calling it here for test purposes
 
@@ -155,7 +165,7 @@ class PlayState extends FlxState
 			shield.shield();
 			canShield = false;
 
-			new FlxTimer().start(2.25, function(tmr:FlxTimer)
+			shieldTimer = new FlxTimer().start(2.25, function(tmr:FlxTimer)
 			{
 				canShield = true;
 				addHeadsUpText("SHIELD READY", 2, FlxColor.CYAN);
@@ -166,6 +176,12 @@ class PlayState extends FlxState
 			if (hooker.daHookerType == 'pogo hooker')
 				FlxG.collide(hookerGrp, pogoPlatform);
 		});
+
+		if (canPause && FlxG.keys.justPressed.ESCAPE)
+		{
+			paused = true;
+			openSubState(new substate.OptionsSubState(false));
+		}
 	}
 
 	function spawnHooker(isConditional:Bool)
@@ -184,11 +200,11 @@ class PlayState extends FlxState
 			var randomInt = FlxG.random.int(0, 100);
 			if (FlxG.random.int(0, 2000) <= 1)
 				hookerType = 'piggie';
-			else if (isConditional && randomInt <= 20 && curWave > onceInWaves)
+			else if (isConditional && randomInt <= 35 && curWave > onceInWaves)
 				hookerType = 'buff hooker';
-			else if (randomInt <= 20 && curWave > timesTwo)
+			else if (randomInt <= 30 && curWave > timesTwo)
 				hookerType = 'pogo hooker';
-			else if (isConditional && randomInt <= 15 && curWave > timesThree)
+			else if (isConditional && randomInt <= 20 && curWave > timesThree)
 				hookerType = 'bomb hooker';
 			else
 				hookerType = 'hooker';
@@ -207,7 +223,7 @@ class PlayState extends FlxState
 		{
 			if (hooker.daHookerType == 'bomb hooker')
 			{
-				new FlxTimer().start(2, function(tmr:FlxTimer)
+				bombTimer = new FlxTimer().start(2, function(tmr:FlxTimer)
 				{
 					hookerGrp.forEachAlive(function(hooker:Hooker)
 					{
@@ -226,7 +242,7 @@ class PlayState extends FlxState
 			if (hooker.daHookerType == 'bomb hooker')
 				hooker.animation.play("explosivo");
 			FlxG.sound.play('assets/sounds/bomb explode.ogg');
-			new FlxTimer().start(2, function(tmr:FlxTimer)
+			bombExplodeTimer = new FlxTimer().start(2, function(tmr:FlxTimer)
 			{
 				hooker.die();
 			});
@@ -306,7 +322,8 @@ class PlayState extends FlxState
 	function newWave()
 	{
 		mario.canShoot = false;
-		new FlxTimer().start(1.5, function(tmr:FlxTimer)
+		canPause = true;
+		newWaveTimer = new FlxTimer().start(1.5, function(tmr:FlxTimer)
 		{
 			curWave += 1;
 			maxHookersPerWave += hookerMultiplier;
@@ -343,6 +360,7 @@ class PlayState extends FlxState
 				shield.setPosition(mario.x - 22, mario.y - 6);
 			}
 			spawnHooker(true);
+			canPause = false;
 		});
 	}
 
@@ -365,5 +383,75 @@ class PlayState extends FlxState
 			spr.y += 35;
 		});
 		headsUpGrp.insert(0, new HeadsUpTxt(text, headsUpGrp, seconds, color));
+	}
+
+	// overrides
+	override function openSubState(SubState:FlxSubState)
+	{
+		if (paused)
+		{
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.pause();
+			if (newWaveTimer != null && !newWaveTimer.finished)
+				newWaveTimer.active = false;
+			if (shieldTimer != null && !shieldTimer.finished)
+				shieldTimer.active = false;
+
+			hookerGrp.forEachAlive(function(hooker:Hooker)
+			{
+				if (hooker.hookerTween != null && !hooker.hookerTween.finished)
+					hooker.hookerTween.active = false;
+				if (hooker.daHookerType == 'bomb hooker')
+				{
+					if (bombTimer != null && !bombTimer.finished)
+						bombTimer.active = false;
+					if (bombExplodeTimer != null && !bombTimer.finished)
+						bombExplodeTimer.active = false;
+				}
+			});
+
+			bulletGrp.forEachAlive(function(bullet:Bullet)
+			{
+				if (bullet.bulletTween != null && !bullet.bulletTween.finished)
+					bullet.bulletTween.active = false;
+			});
+		}
+
+		super.openSubState(SubState);
+	}
+
+	override function closeSubState()
+	{
+		if (paused)
+		{
+			paused = false;
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.play();
+			if (newWaveTimer != null && !newWaveTimer.finished)
+				newWaveTimer.active = true;
+			if (shieldTimer != null && !shieldTimer.finished)
+				shieldTimer.active = true;
+
+			hookerGrp.forEachAlive(function(hooker:Hooker)
+			{
+				if (hooker.hookerTween != null && !hooker.hookerTween.finished)
+					hooker.hookerTween.active = true;
+				if (hooker.daHookerType == 'bomb hooker')
+				{
+					if (bombTimer != null && !bombTimer.finished)
+						bombTimer.active = true;
+					if (bombExplodeTimer != null && !bombTimer.finished)
+						bombExplodeTimer.active = true;
+				}
+			});
+
+			bulletGrp.forEachAlive(function(bullet:Bullet)
+			{
+				if (bullet.bulletTween != null && !bullet.bulletTween.finished)
+					bullet.bulletTween.active = true;
+			});
+		}
+
+		super.closeSubState();
 	}
 }

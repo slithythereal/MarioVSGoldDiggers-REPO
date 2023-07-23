@@ -72,6 +72,8 @@ class YouNeedaUpdateLOL extends FlxState
 				var mvgdLOGO:FlxSprite = new FlxSprite(25, 140).loadGraphic('assets/images/title/retroism.png');
 				add(mvgdLOGO);
 				CommandData.watch(mvgdLOGO);
+				FlxG.sound.play('assets/sounds/mario pipe sound.ogg');
+
 				FlxTween.tween(mvgdLOGO, {alpha: 0, "scale.x": 0.25, "scale.y": 0.25}, 2.5, {
 					ease: FlxEase.circOut,
 					onComplete: function(twn:FlxTween)

@@ -1,14 +1,18 @@
 package;
 
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.util.FlxTimer;
 import haxe.Http;
 
+using StringTools;
+
 class Init extends FlxState
 {
-	public static var gameVersion:String = 'balls'; // 1.0.0
-	public static var updateVersion:String = '';
+	public static var gameVersion:String = '1';
+
+	var marioMouse:FlxSprite;
 
 	override function create()
 	{
@@ -18,32 +22,48 @@ class Init extends FlxState
 		CommandData.loadDebugCommands();
 		#end
 
+		marioMouse = new FlxSprite("assets/images/marioMouse.png");
+		FlxG.mouse.load(marioMouse.pixels);
+
+		// fullscreen save code
+		if (FlxG.save.data.isFullscreen == null)
+			FlxG.save.data.isFullscreen = FlxG.fullscreen;
+		else if (FlxG.save.data.isFullscreen)
+			FlxG.fullscreen = true;
+
 		new FlxTimer().start(0.1, function(tmr:FlxTimer)
 		{
-			/*
-				#if UPDATE_CHECKER
-				var http = new haxe.Http("https://raw.githubusercontent.com/TheSlithyGamer4evr/MarioVSGoldDiggers-REPO/main/version.txt");
-				http.onData = function(data:String)
+			#if UPDATE_CHECKER
+			var http = new Http("https://raw.githubusercontent.com/TheSlithyGamer4evr/MarioVSGoldDiggers-REPO/main/version.txt");
+			var theData:Array<String> = [];
+			http.onData = function(data:String)
+			{
+				theData.push('${data.split('\n')[0].trim()}');
+				if (!gameVersion.contains(theData[0].trim()))
 				{
-					updateVersion = data.split('\n')[0].trim();
-					if (updateVersion != gameVersion)
-					{
-						trace("you needa update lol");
-						FlxG.switchState(new YouNeedaUpdateLOL());
-					}
-					else
-						loadState();
+					trace("OUTDATED LMAO");
+					FlxG.switchState(new YouNeedaUpdateLOL());
 				}
-				#else
+				else
+				{
+					trace("game is fine");
+					loadState();
+				}
+			}
+			http.onError = function(error)
+			{
+				trace('error: $error');
 				loadState();
-				#end
-			 */
+			}
+			http.request();
+			#else
 			loadState();
+			#end
 		});
 	}
 
 	function loadState()
-	{
+	{ // make these first state you open by simply typing `lime test (WHATEVER YOURE COMPILING ON) -D(name here, ex: PLAYSTATE, CUTSCENE, ETC)`
 		#if PLAYSTATE
 		FlxG.switchState(new PlayState());
 		#elseif CUTSCENE

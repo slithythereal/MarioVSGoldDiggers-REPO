@@ -33,10 +33,6 @@ class TitleScreen extends FlxState
 			FlxG.save.data.startsIntroCutscene = hasIntroCutscene;
 		else
 			hasIntroCutscene = FlxG.save.data.startsIntroCutscene;
-		if (FlxG.save.data.isFullscreen == null)
-			FlxG.save.data.isFullscreen = FlxG.fullscreen;
-		else if (FlxG.save.data.isFullscreen)
-			FlxG.fullscreen = true;
 
 		bg = new FlxSprite(0, 0).loadGraphic('$assetPath/7 11.png');
 		add(bg);

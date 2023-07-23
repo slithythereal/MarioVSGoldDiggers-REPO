@@ -7,6 +7,8 @@ import flixel.tweens.FlxTween;
 
 class Flash extends FlxSprite // why not
 {
+	public var flashTween:FlxTween;
+
 	public function new()
 	{
 		super();
@@ -17,6 +19,6 @@ class Flash extends FlxSprite // why not
 	public function flash(flashTime:Float)
 	{
 		alpha = 1;
-		FlxTween.tween(this, {alpha: 0}, flashTime, {ease: FlxEase.linear});
+		flashTween = FlxTween.tween(this, {alpha: 0}, flashTime, {ease: FlxEase.linear});
 	}
 }

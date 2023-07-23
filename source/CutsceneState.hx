@@ -131,7 +131,7 @@ class CutsceneState extends FlxState // TODO: make frames and work on this
 						new FlxTimer().start(2, function(tmr:FlxTimer)
 						{
 							remove(mvgdLOGO);
-							FlxG.sound.play('assets/sounds/cutscenes/Intro/mario pipe sound.ogg');
+							FlxG.sound.play('assets/sounds/mario pipe sound.ogg');
 							new FlxTimer().start(2.5, function(tmr:FlxTimer)
 							{
 								FlxG.save.data.startsIntroCutscene = false;

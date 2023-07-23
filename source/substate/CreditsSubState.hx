@@ -33,7 +33,7 @@ class CreditsSubState extends FlxSubState
 		[
 			'slithy',
 			'slithythereal',
-			"LEAD DEV (MOST WORK)\nhi i hope you enjoyed my game, i put a little over a month into this project\nalso CHECK OUT COOLGUY SIMULATOR (WIP)",
+			"LEAD DEV (MOST WORK)\nhi i hope you enjoyed my game, i put a little over 2 months into this project\nalso CHECK OUT COOLGUY SIMULATOR (WIP)",
 			0xffffa600,
 			'https://slithy.carrd.co'
 		],
@@ -43,6 +43,13 @@ class CreditsSubState extends FlxSubState
 			"MADE RETRO THEMES\nbig balls \nhey thanks for playing ily",
 			0xFFFF0000,
 			'https://www.youtube.com/@cakieyea/'
+		],
+		[
+			'playtesters',
+			'THE PLAYTESTERS',
+			"mrmorian\nlunarcleint\ng-nux\nand the others I can't remember",
+			0xff979797,
+			'https://slithythereal.itch.io/mvgd'
 		]
 	];
 
@@ -200,9 +207,8 @@ class CreditsSubState extends FlxSubState
 			if (FlxG.keys.justReleased.ESCAPE)
 				close();
 		}
-		if(FlxG.mouse.justPressed && FlxG.mouse.overlaps(mvgdLogo)){
-			trace("TAKE TO ITCH LINK");
-		}
+		if (FlxG.mouse.justPressed && FlxG.mouse.overlaps(mvgdLogo))
+			FlxG.openURL("https://slithythereal.itch.io/mvgd");
 	}
 
 	function changeCred(cool:Int, tweenOut:Bool)

@@ -8,6 +8,8 @@ import flixel.util.FlxColor;
 
 class Bullet extends FlxSprite
 {
+	public var bulletTween:FlxTween;
+
 	public function new(x:Float, y:Float)
 	{
 		super(x, y);
@@ -19,7 +21,7 @@ class Bullet extends FlxSprite
 
 	public function shootBullet()
 	{
-		FlxTween.tween(this, {x: 1000}, 0.25, {
+		bulletTween = FlxTween.tween(this, {x: 1000}, 0.25, {
 			ease: FlxEase.linear
 		});
 	}

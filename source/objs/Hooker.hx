@@ -14,6 +14,7 @@ class Hooker extends FlxSprite
 	public var daHealth:Int = 1;
 	public var isConditional:Bool; // tells game if hooker counts as part of a wave
 	public var funnyPogoHeight:Float = 1.2;
+	public var hookerTween:FlxTween;
 
 	final GRAVITY:Int = 1200;
 
@@ -72,14 +73,14 @@ class Hooker extends FlxSprite
 			case 'bomb hooker':
 				trace("has no tween lol");
 			case 'pogo hooker':
-				FlxTween.tween(this, {x: 21}, FlxG.random.float(2, 3), {ease: FlxEase.linear});
+				hookerTween = FlxTween.tween(this, {x: 21}, FlxG.random.float(2, 3), {ease: FlxEase.linear});
 			case 'buff hooker':
-				FlxTween.tween(this, {x: 21}, FlxG.random.float(1.5, 3.5), {ease: FlxEase.linear});
+				hookerTween = FlxTween.tween(this, {x: 21}, FlxG.random.float(1.5, 3.5), {ease: FlxEase.linear});
 			default:
 				if (isHookerConditional)
-					FlxTween.tween(this, {x: 21}, FlxG.random.float(0.50, 5), {ease: FlxEase.linear});
+					hookerTween = FlxTween.tween(this, {x: 21}, FlxG.random.float(0.50, 5), {ease: FlxEase.linear});
 				else
-					FlxTween.tween(this, {x: 21}, FlxG.random.float(1.75, 5), {ease: FlxEase.linear});
+					hookerTween = FlxTween.tween(this, {x: 21}, FlxG.random.float(1.75, 5), {ease: FlxEase.linear});
 		}
 		#end
 	}
