@@ -374,7 +374,7 @@ class PlayState extends FlxState
 	{
 		if (headsUpGrp.members.length > 4)
 		{
-			var sieggy = headsUpGrp.members[4]; // sieggy variable
+			var sieggy = headsUpGrp.members[4]; // sieggy variable LOL
 			sieggy.destroy();
 			headsUpGrp.remove(sieggy);
 		}

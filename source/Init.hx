@@ -34,7 +34,7 @@ class Init extends FlxState
 		new FlxTimer().start(0.1, function(tmr:FlxTimer)
 		{
 			#if UPDATE_CHECKER
-			var http = new Http("https://raw.githubusercontent.com/TheSlithyGamer4evr/MarioVSGoldDiggers-REPO/main/version.txt");
+			var http = new Http("https://raw.githubusercontent.com/slithythereal/MarioVSGoldDiggers-REPO/main/version.txt");
 			var theData:Array<String> = [];
 			http.onData = function(data:String)
 			{
