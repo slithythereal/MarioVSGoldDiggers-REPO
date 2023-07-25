@@ -6,6 +6,7 @@ import flixel.FlxSubState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import objs.GameSprite.GameText;
 import objs.HeadsUpTxt;
 import substate.*;
 
@@ -13,7 +14,7 @@ class OptionsSubState extends FlxSubState
 {
 	var curOption:Int = 0;
 	var optionArray:Array<String> = ['Fullscreen', 'Credits', 'Intro Cutscene', 'Exit Options', 'Exit Game'];
-	var optionGrp:FlxTypedGroup<FlxText>;
+	var optionGrp:FlxTypedGroup<GameText>;
 	var headsUpGrp:FlxTypedGroup<HeadsUpTxt>;
 	var ogStateHasMouse:Bool;
 
@@ -29,16 +30,29 @@ class OptionsSubState extends FlxSubState
 		bg.alpha = 0.5;
 		add(bg);
 
-		optionGrp = new FlxTypedGroup<FlxText>();
+		optionGrp = new FlxTypedGroup<GameText>();
 		add(optionGrp);
 
 		for (i in 0...optionArray.length)
 		{
-			var txt:FlxText = new FlxText(0, 25 + (i * 100), 0, '${optionArray[i]}');
+			var txt:GameText = new GameText(0, 25 + (i * 100), 0, '${optionArray[i]}');
 			txt.setFormat(null, 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			txt.borderSize = 3;
 			txt.ID = i;
 			txt.screenCenter(X);
+			txt._dynamic.switchColor = function(isRed:Bool)
+			{
+				if (isRed)
+				{
+					txt.borderColor = FlxColor.RED;
+					txt.borderSize = 1.5;
+				}
+				else
+				{
+					txt.borderColor = FlxColor.BLACK;
+					txt.borderSize = 3;
+				}
+			}
 			optionGrp.add(txt);
 		}
 
@@ -49,7 +63,7 @@ class OptionsSubState extends FlxSubState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		optionGrp.forEach(function(txt:FlxText)
+		optionGrp.forEach(function(txt:GameText)
 		{
 			if (FlxG.mouse.overlaps(txt))
 			{
@@ -58,15 +72,9 @@ class OptionsSubState extends FlxSubState
 					coolFunction('${optionArray[curOption]}');
 			}
 			if (txt.ID == curOption)
-			{
-				txt.borderColor = FlxColor.RED;
-				txt.borderSize = 1.5;
-			}
+				txt._dynamic.switchColor(true);
 			else
-			{
-				txt.borderColor = FlxColor.BLACK;
-				txt.borderSize = 3;
-			}
+				txt._dynamic.switchColor(false);
 		});
 		if (FlxG.keys.anyJustPressed([W, UP]))
 			changeOption(-1);
@@ -115,15 +123,11 @@ class OptionsSubState extends FlxSubState
 		if (curOption < 0)
 			curOption = optionArray.length - 1;
 
-		optionGrp.forEach(function(txt:FlxText)
+		optionGrp.forEach(function(txt:GameText)
 		{
-			txt.borderColor = FlxColor.BLACK;
-			txt.borderSize = 3;
+			txt._dynamic.switchColor(false);
 			if (txt.ID == curOption)
-			{
-				txt.borderColor = FlxColor.RED;
-				txt.borderSize = 1.5;
-			}
+				txt._dynamic.switchColor(true);
 		});
 	}
 

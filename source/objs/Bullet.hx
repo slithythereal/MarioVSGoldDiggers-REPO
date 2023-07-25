@@ -5,8 +5,12 @@ import flixel.FlxSprite;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import objs.GameSprite;
 
-class Bullet extends FlxSprite
+/**
+ * the bullet projectile that kills enemy hookers
+ */
+class Bullet extends GameSprite
 {
 	public var bulletTween:FlxTween;
 

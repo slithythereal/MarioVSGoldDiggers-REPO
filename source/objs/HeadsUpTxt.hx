@@ -5,8 +5,12 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import objs.GameSprite.GameText;
 
-class HeadsUpTxt extends FlxText // similar to the doom popup text, thought it would be cool
+/**
+ * popup text very reminiscent of DOOM
+ */
+class HeadsUpTxt extends GameText
 {
 	var theSeconds:Float;
 

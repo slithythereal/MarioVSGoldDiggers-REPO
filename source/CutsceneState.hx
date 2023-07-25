@@ -10,14 +10,16 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import objs.GameSprite.GameText;
+import objs.GameSprite;
 import openfl.utils.Assets;
 import sys.FileSystem;
 import sys.io.File;
 
-class CutsceneState extends FlxState // TODO: make frames and work on this
+class CutsceneState extends FlxState
 {
 	var cutsceneName:String;
-	var cutSpr:FlxSprite;
+	var cutSpr:GameSprite;
 	var curFrame:Int = 1;
 	var maxFrames:Int = 1;
 	var frameEvents:Array<Array<Dynamic>> = [[]];
@@ -40,7 +42,7 @@ class CutsceneState extends FlxState // TODO: make frames and work on this
 
 		loadJson(cutsceneName);
 
-		cutSpr = new FlxSprite();
+		cutSpr = new GameSprite();
 		cutSpr._dynamic.nextFrame = function(frame:Int, upFrame:Bool)
 		{
 			if (upFrame)

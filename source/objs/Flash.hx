@@ -4,8 +4,12 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import objs.GameSprite;
 
-class Flash extends FlxSprite // why not
+/**
+ * a flash effect used for transitioning
+ */
+class Flash extends GameSprite
 {
 	public var flashTween:FlxTween;
 

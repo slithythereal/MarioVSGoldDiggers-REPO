@@ -12,23 +12,25 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import objs.GameSprite.GameText;
+import objs.GameSprite;
 
 class CreditsSubState extends FlxSubState
 {
 	var curCredit:Int = 0;
 	var canMove:Bool = true;
-	var credsSpr:FlxSprite;
-	var credsTxt:FlxText;
+	var credsSpr:GameSprite;
+	var credsTxt:GameText;
 	var bg:FlxSprite;
 	var credSprPos:Array<Float> = [4, 32];
-	var credNamePos:Array<Float> = [25, 360];
+	var credNamePos:Array<Float> = [0, 360];
 	var credTxtPos:Array<Float> = [320, 110];
 	var blackAndWhite:FlxBackdrop;
-	var credGrp:FlxTypedGroup<FlxSprite>;
-	var credName:FlxText;
-	var arrowUP:FlxSprite;
-	var mvgdLogo:FlxSprite;
-	var arrowDOWN:FlxSprite;
+	var credGrp:FlxTypedGroup<GameSprite>;
+	var credName:GameText;
+	var arrowUP:GameSprite;
+	var mvgdLogo:GameSprite;
+	var arrowDOWN:GameSprite;
 	var creditsArray:Array<Array<Dynamic>> = [
 		[
 			'slithy',
@@ -72,7 +74,7 @@ class CreditsSubState extends FlxSubState
 		add(blackAndWhite);
 		blackAndWhite.color = creditsArray[curCredit][3];
 
-		credsSpr = new FlxSprite();
+		credsSpr = new GameSprite();
 		credsSpr._dynamic.change = function(newImg:String, tweenOut:Bool)
 		{
 			if (tweenOut)
@@ -104,7 +106,8 @@ class CreditsSubState extends FlxSubState
 		var blackBox2:FlxSprite = new FlxSprite(0, 350).makeGraphic(Std.int(FlxG.width / 2), 250, FlxColor.BLACK);
 		add(blackBox2);
 
-		mvgdLogo = new FlxSprite(360, 0).loadGraphic('assets/images/title/retroism.png');
+		mvgdLogo = new GameSprite(360, 0);
+		mvgdLogo.loadGraphic('assets/images/title/retroism.png');
 		mvgdLogo.scale.set(0.4, 0.4);
 		mvgdLogo.updateHitbox();
 		mvgdLogo.antialiasing = false;
@@ -114,7 +117,8 @@ class CreditsSubState extends FlxSubState
 		credits.borderSize = 2;
 		add(credits);
 
-		credsTxt = new FlxText().setFormat(null, 16, FlxColor.WHITE, LEFT);
+		credsTxt = new GameText();
+		credsTxt.setFormat(null, 16, FlxColor.WHITE, LEFT);
 		credsTxt.fieldWidth = FlxG.width / 2;
 		credsTxt._dynamic.updateCredTxt = function(txt:String, tweenOut:Bool)
 		{
@@ -140,7 +144,7 @@ class CreditsSubState extends FlxSubState
 		}
 		add(credsTxt);
 
-		credName = new FlxText();
+		credName = new GameText(0, 0, FlxG.width / 2);
 		credName._dynamic.updateCredName = function(txt:String, color:FlxColor, tweenOut:Bool)
 		{
 			credName.borderSize = 4;
@@ -170,13 +174,15 @@ class CreditsSubState extends FlxSubState
 		}
 		add(credName);
 
-		arrowUP = new FlxSprite(0, 0).loadGraphic('assets/images/arrow.png');
+		arrowUP = new GameSprite(0, 0);
+		arrowUP.loadGraphic('assets/images/arrow.png');
 		arrowUP.screenCenter(X);
 		arrowUP.scale.set(1, 1);
 		arrowUP.updateHitbox();
 		add(arrowUP);
 
-		arrowDOWN = new FlxSprite(0, FlxG.height - 25).loadGraphic('assets/images/arrow.png');
+		arrowDOWN = new GameSprite(0, FlxG.height - 25);
+		arrowDOWN.loadGraphic('assets/images/arrow.png');
 		arrowDOWN.screenCenter(X);
 		arrowDOWN.scale.set(1, 1);
 		arrowDOWN.updateHitbox();
@@ -228,6 +234,7 @@ class CreditsSubState extends FlxSubState
 		credsSpr._dynamic.change('$newImg', tweenOut);
 		credsTxt._dynamic.updateCredTxt('$newTxt', tweenOut);
 		credName._dynamic.updateCredName('$newName', newColor, tweenOut);
+
 		if (tweenOut)
 		{
 			canMove = false;

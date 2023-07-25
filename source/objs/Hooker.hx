@@ -6,16 +6,48 @@ import flixel.FlxSprite;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import objs.GameSprite;
 
-class Hooker extends FlxSprite
+/**
+ * the game's main type of enemy: the hooker
+ */
+class Hooker extends GameSprite
 {
+	/**
+	 * what type is your hooker
+	 */
 	public var daHookerType:String;
+
+	/**
+	 * background color for jumpscare screen
+	 */
 	public var jumpscareColor:FlxColor;
+
+	/**
+	 * how much health the hooker has
+	 */
 	public var daHealth:Int = 1;
-	public var isConditional:Bool; // tells game if hooker counts as part of a wave
+
+	/**
+	 * tells game if hooker counts as part of a wave
+	 */
+	public var isConditional:Bool;
+
+	/**
+	 * pogo hooker jump height
+	 */
 	public var funnyPogoHeight:Float = 1.2;
+
 	public var hookerTween:FlxTween;
 
+	/**
+	 * tells us if it's dead or not (mainly used for bomb hooker's explosion anim)
+	 */
+	public var isDead:Bool = false;
+
+	/**
+	 * gravity variable for pogo hooker
+	 */
 	final GRAVITY:Int = 1200;
 
 	public function new(?x:Float, ?y:Float, ?hookerType:String, ?isHookerConditional:Bool)
@@ -25,7 +57,7 @@ class Hooker extends FlxSprite
 		isConditional = isHookerConditional;
 
 		// EXTREMELY MESSY - fix the switch statements and you get added to the update's credits -slithy
-		switch (hookerType)
+		switch (hookerType) // x and y positions
 		{
 			case 'bomb hooker':
 				super.x = FlxG.random.float(490, 575);
@@ -34,7 +66,7 @@ class Hooker extends FlxSprite
 				super.x = x;
 				super.y = y;
 		}
-		switch (hookerType)
+		switch (hookerType) // data attributes
 		{
 			case 'bomb hooker':
 				jumpscareColor = 0xff00660e;
@@ -54,7 +86,7 @@ class Hooker extends FlxSprite
 				jumpscareColor = FlxColor.RED;
 				daHealth = 1;
 		}
-		switch (hookerType)
+		switch (hookerType) // defining sprites
 		{
 			case 'bomb hooker':
 				loadGraphic('assets/images/cringe bomb hooker.png', true, 106, 117);
@@ -68,12 +100,12 @@ class Hooker extends FlxSprite
 		updateHitbox();
 
 		#if !NO_WAVES
-		switch (hookerType)
+		switch (hookerType) // tweens
 		{
 			case 'bomb hooker':
 				trace("has no tween lol");
 			case 'pogo hooker':
-				hookerTween = FlxTween.tween(this, {x: 21}, FlxG.random.float(2, 3), {ease: FlxEase.linear});
+				hookerTween = FlxTween.tween(this, {x: 21}, FlxG.random.float(2.75, 3.25), {ease: FlxEase.linear});
 			case 'buff hooker':
 				hookerTween = FlxTween.tween(this, {x: 21}, FlxG.random.float(1.5, 3.5), {ease: FlxEase.linear});
 			default:
@@ -92,6 +124,9 @@ class Hooker extends FlxSprite
 		super.update(elapsed);
 	}
 
+	/**
+	 * the function that kills the hooker
+	 */
 	public function die()
 	{
 		if (daHookerType == 'piggie')
@@ -104,7 +139,10 @@ class Hooker extends FlxSprite
 		super.kill();
 	}
 
-	function pogoJump()
+	/**
+	 * the jumping function for the pogo hooker
+	 */
+	public function pogoJump()
 	{
 		if (isTouching(FlxObject.FLOOR))
 		{

@@ -9,6 +9,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import objs.GameSprite;
 import openfl.Lib;
 import substate.*;
 
@@ -21,7 +22,7 @@ class TitleScreen extends FlxState
 
 	var canPress:Bool = false;
 
-	var logo:FlxSprite;
+	var logo:GameSprite;
 	var startTxt:FlxText;
 
 	override function create()
@@ -62,7 +63,8 @@ class TitleScreen extends FlxState
 		switch (daFunc)
 		{
 			case 'twnLogo':
-				logo = new FlxSprite(26, -180).loadGraphic('$assetPath/retroism.png');
+				logo = new GameSprite(26, -180);
+				logo.loadGraphic('$assetPath/retroism.png');
 				logo.antialiasing = false;
 				logo.updateHitbox();
 				logo._dynamic.update = function(elapsed:Float)

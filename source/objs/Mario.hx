@@ -2,10 +2,21 @@ package objs;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import objs.GameSprite;
 
-class Mario extends FlxSprite
+/**
+ * our game's protagonist: super mario
+ */
+class Mario extends GameSprite
 {
+	/**
+	 * tells the game if mario can shoot or not
+	 */
 	public var canShoot:Bool = false;
+
+	/**
+	 * tells the game if mario is shielding or not
+	 */
 	public var isShielding:Bool = false;
 
 	public function new(?x:Float, ?y:Float)
