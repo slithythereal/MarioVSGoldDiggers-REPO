@@ -131,12 +131,12 @@ class Hooker extends GameSprite
 	{
 		if (daHookerType == 'piggie')
 			FlxG.sound.play('assets/sounds/piggieDeath.ogg');
-		kill();
+		destroy();
 	}
 
-	override public function kill()
+	override public function destroy()
 	{
-		super.kill();
+		super.destroy(); // destroys them so they can't be revived later
 	}
 
 	/**

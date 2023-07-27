@@ -30,8 +30,8 @@ class Bullet extends GameSprite
 		});
 	}
 
-	override public function kill()
+	override public function destroy()
 	{
-		super.kill();
+		super.destroy();
 	}
 }

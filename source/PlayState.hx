@@ -227,6 +227,7 @@ class PlayState extends FlxState
 	{
 		mario.canShoot = false;
 		canPause = true;
+		canShield = false;
 		newWaveTimer = new FlxTimer().start(1.5, function(tmr:FlxTimer)
 		{
 			curWave += 1;
@@ -241,6 +242,7 @@ class PlayState extends FlxState
 				hookerCount = maxHookersPerWave;
 			waveTxt.text = 'WAVE: $curWave';
 			mario.canShoot = true;
+			canShield = true;
 			if (curWave % onceInWaves == 0)
 			{
 				curLevel += 1;
