@@ -1,6 +1,5 @@
 ﻿# Mario Vs Gold Diggers GITHUB CODE REPOSITORY
 ![mvgdthumbnail](https://github.com/slithythereal/MarioVSGoldDiggers-REPO/assets/96665813/951217c1-e1a9-4b64-b1f8-54e3ee0e1875)
-9435cfa8)
 
 This is the repository for the Mario Vs Gold Diggers joke game.
 This uses very specific versions of Haxeflixel because I was too lazy to update a lot of this stuff.
