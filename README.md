@@ -30,7 +30,7 @@ the lines above are the versions I used for this project, send a message in the 
 4. Download hashlink, simply go into command prompt and type in `lime test hl` and follow the instructions from there
 
     or just go [here](https://github.com/HaxeFoundation/hashlink/releases) if you're having trouble.
-     I think the version I use is probably 1.11, not sure tho.
+     I think the version I use is probably 1.13, not sure tho.
 
 6. The compiling commands are the same as before
 - `lime test windows` for windows
