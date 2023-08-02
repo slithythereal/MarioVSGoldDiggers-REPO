@@ -115,6 +115,7 @@ class CutsceneState extends FlxState
 				});
 
 			case 'playstateTrans':
+				canPress = false;
 				var blackScreen:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 				add(blackScreen);
 
