@@ -32,7 +32,7 @@ However I made an easier way to do this by making a setup batch file. The instru
 
 - You can use `-debug` at the end of it to put the game into debug mode
 
-- You can use `-DNOWAVES` at the end (even with debug) to put playstate into a debug offset/test mode
+- You can use `-DNO_WAVES` at the end (even with debug) to put playstate into a debug offset/test mode
 
 ![image](https://github.com/slithythereal/MarioVSGoldDiggers-REPO/assets/96665813/b2cc33f4-f9bb-4354-b264-d1901b472787)
 
