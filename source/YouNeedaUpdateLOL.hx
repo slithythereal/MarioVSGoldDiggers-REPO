@@ -24,6 +24,8 @@ class YouNeedaUpdateLOL extends FlxState
 	{
 		super.create();
 
+		Main.curState = "YouNeedaUpdateLOL";
+
 		var bg:FlxSprite = new FlxSprite().loadGraphic('assets/images/title/7 11.png');
 		bg.flipX = true;
 		add(bg);

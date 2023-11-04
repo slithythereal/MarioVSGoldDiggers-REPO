@@ -1,9 +1,12 @@
 package substate;
 
+import PlayState;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxState;
 import flixel.FlxSubState;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import objs.GameSprite.GameText;
@@ -13,7 +16,7 @@ import substate.*;
 class OptionsSubState extends FlxSubState
 {
 	var curOption:Int = 0;
-	var optionArray:Array<String> = ['Fullscreen', 'Credits', 'Intro Cutscene', 'Exit Options', 'Exit Game'];
+	var optionArray:Array<String>;
 	var optionGrp:FlxTypedGroup<GameText>;
 	var headsUpGrp:FlxTypedGroup<HeadsUpTxt>;
 	var ogStateHasMouse:Bool;
@@ -21,6 +24,18 @@ class OptionsSubState extends FlxSubState
 	public function new(ogStateHasMouse:Bool)
 	{
 		super();
+
+		optionArray = [];
+		if (Main.curState == 'PlayState')
+			optionArray.push("Restart");
+		optionArray.push("Fullscreen");
+		optionArray.push("Credits");
+		optionArray.push("Intro Cutscene");
+		optionArray.push("Exit Options");
+		#if !html5
+		optionArray.push("Exit Game");
+		#end
+
 		this.ogStateHasMouse = ogStateHasMouse;
 
 		if (!ogStateHasMouse)
@@ -35,7 +50,7 @@ class OptionsSubState extends FlxSubState
 
 		for (i in 0...optionArray.length)
 		{
-			var txt:GameText = new GameText(0, 25 + (i * 100), 0, '${optionArray[i]}');
+			var txt:GameText = new GameText(0, 25 + (i * 75), 0, '${optionArray[i]}');
 			txt.setFormat(null, 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			txt.borderSize = 3;
 			txt.ID = i;
@@ -94,14 +109,18 @@ class OptionsSubState extends FlxSubState
 	{
 		switch (daFunc)
 		{
+			case 'Restart':
+				FlxG.switchState(new PlayState());
 			case 'Fullscreen':
 				FlxG.fullscreen = !FlxG.fullscreen;
 				FlxG.save.data.isFullscreen = FlxG.fullscreen;
 				addHeadsUpText('IsFullscreen: ${FlxG.save.data.isFullscreen}', 2);
 			case 'Credits':
 				openSubState(new CreditsSubState());
+			#if !html5
 			case 'Exit Game':
 				Sys.exit(1);
+			#end
 			case 'Exit Options':
 				close();
 			case 'Intro Cutscene':

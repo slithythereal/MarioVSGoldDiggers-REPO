@@ -13,8 +13,10 @@ import flixel.util.FlxTimer;
 import objs.GameSprite.GameText;
 import objs.GameSprite;
 import openfl.utils.Assets;
+#if !html5
 import sys.FileSystem;
 import sys.io.File;
+#end
 
 class CutsceneState extends FlxState
 {
@@ -39,6 +41,8 @@ class CutsceneState extends FlxState
 	override function create()
 	{
 		super.create();
+
+		Main.curState = "CutsceneState";
 
 		loadJson(cutsceneName);
 

@@ -33,7 +33,7 @@
 	<source path="source" />
 	<assets path="assets" embed="true"/> <!--REMOVE embed="true" TO GET RID OF EMBEDDING THE ASSETS INTO A .EXE FILE (ALLOWS ASSETS FOLDER AND EASIER .JSON EDITING)-->
 	<!--<define name="NO_EMBED"/>--> <!--USE THIS WHEN YOU TURN OFF EMBEDDING ASSETS-->
-	<define name="UPDATE_CHECKER"/> <!--disable this if you don't want to get made fun of (a.k.a being a wimp)-->
+	<define name="UPDATE_CHECKER" unless="web"/> <!--disable this if you don't want to get made fun of (a.k.a being a wimp)-->
 
 	<!-- _______________________________ Libraries ______________________________ -->
 

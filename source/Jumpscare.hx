@@ -32,6 +32,9 @@ class Jumpscare extends FlxState // messy code: feel free to fix it if you want 
 	override function create()
 	{
 		super.create();
+
+		Main.curState = "Jumpscare";
+
 		FlxG.camera.zoom = 1;
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);

@@ -10,7 +10,7 @@ using StringTools;
 
 class Init extends FlxState
 {
-	public static var gameVersion:String = '1';
+	public static var gameVersion:String = '1.1';
 
 	var marioMouse:FlxSprite;
 
@@ -18,6 +18,7 @@ class Init extends FlxState
 	{
 		super.create();
 
+		Main.curState = "Init";
 		#if debug
 		CommandData.loadDebugCommands();
 		#end

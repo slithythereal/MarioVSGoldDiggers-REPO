@@ -105,7 +105,7 @@ class Hooker extends GameSprite
 			case 'bomb hooker':
 				trace("has no tween lol");
 			case 'pogo hooker':
-				hookerTween = FlxTween.tween(this, {x: 21}, FlxG.random.float(2.75, 3.25), {ease: FlxEase.linear});
+				hookerTween = FlxTween.tween(this, {x: 21}, FlxG.random.float(3, 3.50), {ease: FlxEase.linear});
 			case 'buff hooker':
 				hookerTween = FlxTween.tween(this, {x: 21}, FlxG.random.float(1.5, 3.5), {ease: FlxEase.linear});
 			default:

@@ -29,6 +29,8 @@ class TitleScreen extends FlxState
 	{
 		super.create();
 
+		Main.curState = "TitleScreen";
+
 		// crappy save data stuff, whoever fixes these gets added to update credits
 		if (FlxG.save.data.startsIntroCutscene == null)
 			FlxG.save.data.startsIntroCutscene = hasIntroCutscene;
@@ -130,6 +132,7 @@ class TitleScreen extends FlxState
 
 				new FlxTimer().start(2.5, function(tmr:FlxTimer)
 				{
+					trace("TWEEN ACTIVE");
 					FlxTween.tween(FlxG.camera, {zoom: 10}, 2.5, {ease: FlxEase.backOut});
 					FlxTween.tween(FlxG.camera, {alpha: 0}, 2.5, {
 						ease: FlxEase.backOut,

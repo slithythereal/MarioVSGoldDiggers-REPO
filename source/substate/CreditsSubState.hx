@@ -49,7 +49,7 @@ class CreditsSubState extends FlxSubState
 		[
 			'playtesters',
 			'THE PLAYTESTERS',
-			"mrmorian\nlunarcleint\ng-nux\nand the others I can't remember",
+			"mrmorian\nlunarcleint\ng-nux\nflipdoesstuff\nand the others I can't remember",
 			0xff979797,
 			'https://slithythereal.itch.io/mvgd'
 		]

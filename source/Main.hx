@@ -1,6 +1,8 @@
 package;
 
+import flixel.FlxG;
 import flixel.FlxGame;
+import flixel.FlxState;
 import openfl.display.Sprite;
 
 class Main extends Sprite
@@ -11,6 +13,8 @@ class Main extends Sprite
 	var frameRate:Int = 60;
 	var updateframerate:Int = 60;
 	var skipSplash:Bool = true;
+
+	public static var curState:String;
 
 	public function new()
 	{

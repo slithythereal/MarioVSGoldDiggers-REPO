@@ -77,6 +77,8 @@ class PlayState extends FlxState
 	{
 		super.create();
 
+		Main.curState = "PlayState";
+
 		FlxG.sound.playMusic('assets/music/${levels[curLevel]}.ogg', 0.7, true); // ty cakie
 		FlxG.mouse.visible = false;
 
@@ -228,6 +230,9 @@ class PlayState extends FlxState
 		mario.canShoot = false;
 		canPause = true;
 		canShield = false;
+
+		if (curWave == 1)
+			addHeadsUpText("When it stops like this you can pause press [ESCAPE] to pause", 1.5);
 		newWaveTimer = new FlxTimer().start(1.5, function(tmr:FlxTimer)
 		{
 			curWave += 1;
@@ -235,9 +240,7 @@ class PlayState extends FlxState
 			var timesTwo = onceInWaves * 2;
 			var timesThree = onceInWaves * 3;
 			if (curWave == onceInWaves || curWave == timesTwo || curWave == timesThree)
-			{
 				hookerCount = 1;
-			}
 			else
 				hookerCount = maxHookersPerWave;
 			waveTxt.text = 'WAVE: $curWave';
@@ -283,7 +286,7 @@ class PlayState extends FlxState
 		else
 		{
 			var randomInt = FlxG.random.int(0, 100);
-			if (FlxG.random.int(0, 2000) <= 1)
+			if (FlxG.random.int(0, 10000) <= 1)
 				hookerType = 'piggie';
 			else if (isConditional && randomInt <= 35 && curWave > onceInWaves)
 				hookerType = 'buff hooker';
@@ -321,6 +324,8 @@ class PlayState extends FlxState
 					if (FlxG.random.float(0, 100) >= 25 && curWave != onceInWaves && hookerCount > 1)
 					{
 						var randoNumber:Int = FlxG.random.int(1, 2);
+						if (hookerCount <= 2)
+							hookerCount += randoNumber; // FIX FOR HOOKERS STILL MOVING ON PAUSE
 						for (i in 0...randoNumber)
 						{
 							spawnHooker(false);
